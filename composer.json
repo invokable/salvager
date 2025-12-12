@@ -14,7 +14,8 @@
     "phpunit/phpunit": "^12.4",
     "mockery/mockery": "^1.6.1",
     "orchestra/testbench": "^10.8",
-    "laravel/pint": "^1.26"
+    "laravel/pint": "^1.26",
+    "revolution/laravel-boost-copilot-cli": "^1.0"
   },
   "autoload": {
     "psr-4": {
