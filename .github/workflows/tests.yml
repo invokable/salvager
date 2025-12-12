@@ -13,25 +13,26 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.1]
+        php: [8.4, 8.5]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring
           coverage: xdebug
-      - name: Install Composer dependencies
-        run: composer update --no-progress --optimize-autoloader
-      - name: Test
-        run: docker-compose run --rm phpunit
-      - name: codeclimate
-        if: success() && (github.event_name != 'pull_request')
-        uses: paambaati/codeclimate-action@v3.0.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          prefix: /app
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          node-version: 24
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Install NPM dependencies
+        run: npm install
+      - name: Install Playwright
+        run: npx playwright install
+      - name: Test
+        run: composer run test

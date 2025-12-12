@@ -1,45 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Revolution\Salvager\Client;
-use Revolution\Salvager\Contracts\Driver;
 use Revolution\Salvager\Contracts\Factory;
-use Revolution\Salvager\Drivers\Chrome;
 
 class ClientTest extends TestCase
 {
-    /**
-     * @var Client
-     */
     protected Client $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->client = new Client(app(Driver::class));
+        $this->client = new Client;
     }
 
-    public function testInstance()
+    public function test_instance()
     {
         $this->assertInstanceOf(Client::class, $this->client);
     }
 
-    public function testFactory()
+    public function test_factory()
     {
         $this->assertInstanceOf(Client::class, app(Factory::class));
     }
 
-    public function testDriver()
-    {
-        $driver = new Chrome([]);
-        $this->client->setDriver($driver);
-
-        $this->assertEquals($driver, $this->client->getDriver());
-    }
-
-    public function testBrowse()
+    public function test_browse()
     {
         $this->assertTrue(is_callable([$this->client, 'browse']));
     }

@@ -1,82 +1,53 @@
 # Salvager
 
-[![tests](https://github.com/kawax/salvager/actions/workflows/tests.yml/badge.svg)](https://github.com/kawax/salvager/actions/workflows/tests.yml)
+Tiny WebCrawler for Laravel using Playwright.
 
-WebCrawler.
+## Version 2
 
-Build with Laravel Dusk and Symfony DomCrawler.
-
-- https://github.com/laravel/dusk
-- https://github.com/symfony/dom-crawler
+Version 2 has been reworked as a simple package that depends on Playwright. It only implements minimal functionality, since you can use [victor-teles/playwright-php](https://github.com/victor-teles/playwright-php) directly.
 
 ## Requirements
-- PHP >= 8.0
-- Latest Chrome. Linux, Mac, Windows.
+- PHP >= 8.4
+- Laravel >= 12.x
 
 ## Installation
 
-```
+```shell
 composer require revolution/salvager
 ```
 
-### Laravel config(Option)
-```
-php artisan vendor:publish --provider="Revolution\Salvager\Providers\SalvagerServiceProvider"
-```
+This package also requires the installation of npm packages and browser binaries.
 
-### Lumen, Laravel Zero
-- ServiceProvider: `Revolution\Salvager\Providers\SalvagerServiceProvider::class,`
-- Facade: `Revolution\Salvager\Facades\Salvager::class,`
+```shell
+npm install https://github.com/victor-teles/playwright-php/tarball/main
 
-## Plain PHP Demo by Docker
-
-```
-git clone https://github.com/kawax/salvager.git salvager && cd $_
-
-docker-compose run --rm composer install
-
-docker-compose run --rm example google.php
-//Show Google search results.
-//Store screenshot at ./examples/screenshots/
+npx playwright install
 ```
 
-## Usage(Laravel)
+## Usage
 
-You can use the `Salvager` Facade anywhere. Controller, Command, Job...
+The browser will be terminated when you exit `Salvager::browse()`, so please obtain any necessary data within the `Salvager::browse()` closure. The Page object cannot be used outside of `Salvager::browse()`.
 
 ```php
-use Laravel\Dusk\Browser;
-use Symfony\Component\DomCrawler\Crawler;
-
 use Revolution\Salvager\Facades\Salvager;
+use PlaywrightPhp\Resources\Page;
 
 class SalvagerController
 {
     public function __invoke()
     {
-        Salvager::browse(function (Browser $browser) use (&$crawler) {
-            $crawler = $browser->visit('https://www.google.com/')
-                               ->keys('input[name=q]', 'Laravel', '{enter}')
-                               ->screenshot('google-laravel')
-                               ->crawler();
+         Salvager::browse(function (Page $page) use (&$url, &$text) {
+            $page->goto('https://example.com/');
+            $page->screenshot(['path' => config('salvager.screenshots').'example.png']);
+
+            $url = $page->url();
+            $text = $page->querySelector('p')?->innerText();
         });
 
-        /**
-         * @var Crawler $crawler
-         */
-        $crawler->filter('.r')->each(function (Crawler $node) {
-            dump($node->filter('h3')->text());
-            dump($node->filter('a')->attr('href'));
-        });
+        dump($url);
+        dump($text);
     }
 }
-```
-
-https://github.com/kawax/salvager-project
-
-## Develop
-```
-docker-compose run --rm phpunit
 ```
 
 ## LICENSE

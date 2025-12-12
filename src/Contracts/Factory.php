@@ -1,16 +1,10 @@
 <?php
 
-namespace Revolution\Salvager\Contracts;
+declare(strict_types=1);
 
-use Closure;
+namespace Revolution\Salvager\Contracts;
 
 interface Factory
 {
-    /**
-     * @param  Closure  $callback
-     *
-     * @throws \Exception
-     * @throws \Throwable
-     */
-    public function browse(Closure $callback);
+    public function browse(callable $callback);
 }
