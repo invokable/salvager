@@ -8,4 +8,4 @@
 .gitignore export-ignore
 phpunit.xml export-ignore
 pint.json export-ignore
-packagist.json export-ignore
+package.json export-ignore
