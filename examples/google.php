@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Plain PHP example.
- */
 require_once __DIR__.'/../vendor/autoload.php';
 
 use PlaywrightPhp\Resources\Page;
