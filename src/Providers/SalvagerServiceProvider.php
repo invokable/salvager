@@ -18,9 +18,9 @@ class SalvagerServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/salvager.php', 'salvager');
 
-        $this->app->singleton(Factory::class, Client::class);
+        $this->app->scoped(Factory::class, Client::class);
 
-        $this->app->singleton(Playwright::class, fn () => new Playwright(config('salvager.playwright')));
+        $this->app->scoped(Playwright::class, fn () => new Playwright(config('salvager.playwright')));
     }
 
     /**
