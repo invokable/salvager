@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PlaywrightPhp\Playwright;
 
 require_once __DIR__.'/../vendor/autoload.php';
