@@ -1,25 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\Salvager\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Revolution\Salvager\Contracts\Driver;
 use Revolution\Salvager\Contracts\Factory;
 
 /**
- * Class Salvager.
- *
- * @method void browse(\Closure $callback)
- * @method $this setDriver(Driver $driver)
+ * @method void browse(callable $callback)
  */
 class Salvager extends Facade
 {
     /**
      * Get the registered name of the component.
-     *
-     * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Factory::class;
     }

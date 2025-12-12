@@ -1,43 +1,22 @@
 <?php
+
 /**
  * Plain PHP example.
  */
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Laravel\Dusk\Browser;
+use PlaywrightPhp\Resources\Page;
 use Revolution\Salvager\Client;
-use Revolution\Salvager\Drivers\Chrome;
-use Symfony\Component\DomCrawler\Crawler;
 
-Browser::$storeScreenshotsAt = __DIR__.'/screenshots/';
-Browser::$storeConsoleLogAt = __DIR__.'/console/';
+$client = new Client;
 
-Browser::macro('crawler', function () {
-    return new Crawler($this->driver->getPageSource() ?? '', $this->driver->getCurrentURL() ?? '');
-});
+$client->browse(function (Page $page) {
+    $page->goto('https://www.google.com/');
+    $search = $page->getByRole('combobox');
+    $search->fill('PHP');
+    $search->press('Enter');
+    $page->waitForURL('**/search**');
+    $page->screenshot(['path' => 'examples/screenshots/playwright-google.png']);
 
-$options = [
-    '--disable-gpu',
-    '--headless',
-    '--window-size=1280,720',
-
-    // Docker
-    '--no-sandbox',
-];
-
-$client = new Client(new Chrome($options));
-
-$client->browse(function (Browser $browser) {
-    /**
-     * @var Crawler $crawler
-     */
-    $crawler = $browser->visit('https://www.google.com/')
-                       ->keys('input[name=q]', 'PHP', '{enter}')
-                       ->screenshot('google-php')
-                       ->crawler();
-
-    $crawler->filter('.r')->each(function (Crawler $node) {
-        dump($node->filter('h3')->text());
-        dump($node->filter('a')->attr('href'));
-    });
+    file_put_contents('examples/html/playwright-google.html', $page->content());
 });

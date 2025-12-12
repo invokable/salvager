@@ -1,90 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\Salvager;
 
-use Closure;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Laravel\Dusk\Concerns\ProvidesBrowser;
-use Revolution\Salvager\Contracts\Driver;
+use Illuminate\Container\Container;
+use PlaywrightPhp\Playwright;
+use PlaywrightPhp\Resources\Page;
 use Revolution\Salvager\Contracts\Factory;
 
 class Client implements Factory
 {
-    use ProvidesBrowser {
-        browse as parentBrowse;
-    }
-
     /**
-     * Client constructor.
-     *
-     * @param  Driver  $driver
+     * @param  callable(Page $page): void  $callback
      */
-    public function __construct(private Driver $driver)
+    public function browse(callable $callback): void
     {
-        //
-    }
+        $playwright = Container::getInstance()->make(Playwright::class);
 
-    /**
-     * @param  Closure  $callback
-     *
-     * @throws \Exception
-     * @throws \Throwable
-     */
-    public function browse(Closure $callback)
-    {
-        $this->driver->start();
+        $browser = $playwright->launch();
 
-        static::afterClass(function () {
-            $this->driver->stop();
-        });
+        $page = $browser->newPage();
 
-        $this->parentBrowse($callback);
+        $callback($page);
 
-        static::tearDownDuskClass();
-    }
-
-    /**
-     * @return RemoteWebDriver
-     */
-    protected function driver(): RemoteWebDriver
-    {
-        return $this->driver->create();
-    }
-
-    /**
-     * @return Driver
-     */
-    public function getDriver(): Driver
-    {
-        return $this->driver;
-    }
-
-    /**
-     * @param  Driver  $driver
-     * @return $this
-     */
-    public function setDriver(Driver $driver): static
-    {
-        $this->driver = $driver;
-
-        return $this;
-    }
-
-    /**
-     * @param  bool  $withDataSet
-     * @return string
-     */
-    protected function getName(bool $withDataSet = true): string
-    {
-        return '';
-    }
-
-    public function __destruct()
-    {
-        try {
-            static::tearDownDuskClass();
-        } catch (\Exception $e) {
-            //
-        }
+        $browser->close();
     }
 }

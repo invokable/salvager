@@ -1,36 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-use Laravel\Dusk\Browser;
+use PlaywrightPhp\Resources\Page;
 use Revolution\Salvager\Facades\Salvager;
-use Symfony\Component\DomCrawler\Crawler;
 
 class BrowseTest extends TestCase
 {
-    public function testBrowse()
+    public function test_browse()
     {
-        Salvager::browse(function (Browser $browser) use (&$crawler) {
-            $crawler = $browser->visit('https://example.com/')
-                               ->screenshot('example')
-                               ->crawler();
+        Salvager::browse(function (Page $page) use (&$url, &$text) {
+            $page->goto('https://example.com/');
+            $page->screenshot(['path' => config('salvager.screenshots').'playwright-test.png']);
+
+            $url = $page->url();
+            $text = $page->querySelector('p')?->innerText();
         });
 
-        $this->assertInstanceOf(Crawler::class, $crawler);
-        $this->assertEquals('https://example.com/', $crawler->getUri());
-    }
-
-    public function testMultiBrowse()
-    {
-        Salvager::browse(function (Browser $browser, Browser $browser2) use (&$crawler, &$crawler2) {
-            $crawler = $browser->visit('https://example.com/')
-                               ->crawler();
-
-            $crawler2 = $browser2->visit('https://example.org/')
-                                 ->crawler();
-        });
-
-        $this->assertEquals('https://example.com/', $crawler->getUri());
-        $this->assertEquals('https://example.org/', $crawler2->getUri());
+        $this->assertEquals('https://example.com/', $url);
+        $this->assertGreaterThan(1, mb_strlen($text));
     }
 }
