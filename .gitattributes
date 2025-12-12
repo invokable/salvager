@@ -9,3 +9,5 @@
 phpunit.xml export-ignore
 pint.json export-ignore
 package.json export-ignore
+boost.json export-ignore
+testbench.yaml export-ignore
