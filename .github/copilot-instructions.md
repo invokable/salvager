@@ -4,7 +4,7 @@ Tiny WebCrawler for Laravel using Playwright.
 
 ## Technology Stack
 - Laravel 12
-- PHP 8.4+
+- PHP 8.3+
 - Playwright via victor-teles/playwright-php package
 
 <laravel-boost-guidelines>

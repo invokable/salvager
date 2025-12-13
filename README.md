@@ -7,7 +7,7 @@ Tiny WebCrawler for Laravel using Playwright.
 Version 2 has been reworked as a simple package that depends on Playwright. It only implements minimal functionality, since you can use [victor-teles/playwright-php](https://github.com/victor-teles/playwright-php) directly.
 
 ## Requirements
-- PHP >= 8.4
+- PHP >= 8.3
 - Laravel >= 12.x
 
 ## Installation
