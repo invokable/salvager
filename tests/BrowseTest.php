@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Mockery;
+use PlaywrightPhp\Resources\Browser;
 use PlaywrightPhp\Resources\Page;
 use Revolution\Salvager\Facades\Salvager;
 
@@ -22,6 +23,15 @@ class BrowseTest extends TestCase
 
         $this->assertEquals('https://example.com/', $url);
         $this->assertGreaterThan(1, mb_strlen($text));
+    }
+
+    public function test_launch()
+    {
+        $browser = Salvager::launch();
+
+        $this->assertInstanceOf(Browser::class, $browser);
+
+        $browser->close();
     }
 
     public function test_facade()

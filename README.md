@@ -50,5 +50,21 @@ class SalvagerController
 }
 ```
 
+If you want more control, just launch the browser with `Salvager::launch()`.
+
+```php
+use PlaywrightPhp\Resources\Browser;
+use Revolution\Salvager\Facades\Salvager;
+
+$browser = Salvager::launch();
+
+$page = $browser->newPage();
+$page->goto('https://example.com/');
+// Do something...
+
+// Don't forget to close the browser
+$browser->close();
+```
+
 ## LICENSE
 MIT  
