@@ -30,9 +30,7 @@ jobs:
           node-version: 24
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
-      - name: Install NPM dependencies
-        run: npm install
       - name: Install Playwright
-        run: npx playwright install
+        run: vendor/bin/playwright-install --with-deps
       - name: Test
         run: composer run test
