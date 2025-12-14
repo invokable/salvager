@@ -30,6 +30,5 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('salvager.screenshots', __DIR__.'/../examples/screenshots/');
-        $app['config']->set('salvager.console', __DIR__.'/../examples/console/');
     }
 }

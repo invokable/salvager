@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use PlaywrightPhp\Resources\Page;
-use Revolution\Salvager\Client;
+use Playwright\Playwright;
 
-$client = new Client;
+$browser = Playwright::chromium();
 
-$client->browse(function (Page $page) {
-    $page->goto('https://www.google.com/');
-    $search = $page->getByRole('combobox');
-    $search->fill('PHP');
-    $search->press('Enter');
-    $page->waitForURL('**/search**');
-    $page->screenshot(['path' => 'examples/screenshots/playwright-google.png']);
+$page = $browser->newPage();
+$page->goto('https://www.google.com/');
+$search = $page->getByRole('combobox');
+$search->fill('PHP');
+//    $search->press('Enter');
+//    $page->waitForURL('**/search**');
+$file = $page->screenshot(__DIR__.'/screenshots/playwright-google.png');
+echo "Screenshot saved to: {$file}\n";
 
-    file_put_contents('examples/html/playwright-google.html', $page->content());
-});
+file_put_contents('./examples/html/playwright-google.html', $page->content());
+
+$page->close();
+$browser->close();

@@ -4,7 +4,7 @@ Tiny WebCrawler for Laravel using Playwright.
 
 ## Version 2
 
-Version 2 has been reworked as a simple package that depends on Playwright. It only implements minimal functionality, since you can use [victor-teles/playwright-php](https://github.com/victor-teles/playwright-php) directly.
+Version 2 has been reworked as a simple package that depends on Playwright. It only implements minimal functionality, since you can use [playwright-php/playwright](https://github.com/playwright-php/playwright) directly.
 
 ## Requirements
 - PHP >= 8.3
@@ -16,12 +16,14 @@ Version 2 has been reworked as a simple package that depends on Playwright. It o
 composer require revolution/salvager
 ```
 
-This package also requires the installation of npm packages and browser binaries.
-
+Install Playwright browsers:
 ```shell
-npm install https://github.com/victor-teles/playwright-php/tarball/main
+vendor/bin/playwright-install --browsers
+```
 
-npx playwright install
+Or install Playwright browsers with OS dependencies:
+```shell
+vendor/bin/playwright-install --with-deps
 ```
 
 ## Usage
@@ -30,7 +32,7 @@ The browser will be terminated when you exit `Salvager::browse()`, so please obt
 
 ```php
 use Revolution\Salvager\Facades\Salvager;
-use PlaywrightPhp\Resources\Page;
+use Playwright\Page\Page;
 
 class SalvagerController
 {
@@ -38,10 +40,10 @@ class SalvagerController
     {
          Salvager::browse(function (Page $page) use (&$url, &$text) {
             $page->goto('https://example.com/');
-            $page->screenshot(['path' => config('salvager.screenshots').'example.png']);
+            $page->screenshot(config('salvager.screenshots').'example.png');
 
             $url = $page->url();
-            $text = $page->querySelector('p')?->innerText();
+            $text = $page->locator('p')->first()->innerText();
         });
 
         dump($url);
@@ -53,9 +55,10 @@ class SalvagerController
 If you want more control, just launch the browser with `Salvager::launch()`.
 
 ```php
-use PlaywrightPhp\Resources\Browser;
+use Playwright\Browser\BrowserContextInterface;
 use Revolution\Salvager\Facades\Salvager;
 
+/* @var BrowserContextInterface $browser */
 $browser = Salvager::launch();
 
 $page = $browser->newPage();

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Revolution\Salvager\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use PlaywrightPhp\Resources\Browser;
+use Playwright\Browser\BrowserContextInterface;
 use Revolution\Salvager\Contracts\Factory;
 
 /**
  * @method void browse(callable $callback)
- * @method Browser launch()
+ * @method BrowserContextInterface launch()
  */
 class Salvager extends Facade
 {

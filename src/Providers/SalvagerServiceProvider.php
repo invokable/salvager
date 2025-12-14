@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Revolution\Salvager\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use PlaywrightPhp\Playwright;
 use Revolution\Salvager\Client;
 use Revolution\Salvager\Contracts\Factory;
 
@@ -19,8 +18,6 @@ class SalvagerServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../../config/salvager.php', 'salvager');
 
         $this->app->scoped(Factory::class, Client::class);
-
-        $this->app->scoped(Playwright::class, fn () => new Playwright(config('salvager.playwright')));
     }
 
     /**

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests;
 
 use Mockery;
-use PlaywrightPhp\Resources\Browser;
-use PlaywrightPhp\Resources\Page;
+use Playwright\Browser\BrowserContextInterface;
+use Playwright\Page\Page;
 use Revolution\Salvager\Facades\Salvager;
 
 class BrowseTest extends TestCase
@@ -15,10 +15,10 @@ class BrowseTest extends TestCase
     {
         Salvager::browse(function (Page $page) use (&$url, &$text) {
             $page->goto('https://example.com/');
-            $page->screenshot(['path' => config('salvager.screenshots').'playwright-test.png']);
+            $page->screenshot(path: config('salvager.screenshots').'playwright-test.png');
 
             $url = $page->url();
-            $text = $page->querySelector('p')?->innerText();
+            $text = $page->locator('p')?->first()->innerText();
         });
 
         $this->assertEquals('https://example.com/', $url);
@@ -29,7 +29,7 @@ class BrowseTest extends TestCase
     {
         $browser = Salvager::launch();
 
-        $this->assertInstanceOf(Browser::class, $browser);
+        $this->assertInstanceOf(BrowserContextInterface::class, $browser);
 
         $browser->close();
     }
@@ -43,10 +43,10 @@ class BrowseTest extends TestCase
 
         Salvager::browse(function (Page $page) use (&$url, &$text) {
             $page->goto('https://example.com/');
-            $page->screenshot(['path' => config('salvager.screenshots').'playwright-test.png']);
+            $page->screenshot(path: config('salvager.screenshots').'playwright-test.png');
 
             $url = $page->url();
-            $text = $page->querySelector('p')?->innerText();
+            $text = $page->locator('p')?->first()->innerText();
         });
 
         $this->assertNull($url);

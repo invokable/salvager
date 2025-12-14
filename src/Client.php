@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Revolution\Salvager;
 
-use Illuminate\Container\Container;
-use PlaywrightPhp\Playwright;
-use PlaywrightPhp\Resources\Browser;
-use PlaywrightPhp\Resources\Page;
+use Playwright\Browser\BrowserContextInterface;
+use Playwright\Page\Page;
+use Playwright\Playwright;
 use Revolution\Salvager\Contracts\Factory;
 
 class Client implements Factory
@@ -17,24 +16,21 @@ class Client implements Factory
      */
     public function browse(callable $callback): void
     {
-        $playwright = Container::getInstance()->make(Playwright::class);
-
-        $browser = $playwright->launch();
+        $browser = $this->launch();
 
         $page = $browser->newPage();
 
         $callback($page);
 
-        $browser->close();
+        rescue(fn () => $page->close());
+        rescue(fn () => $browser->close());
     }
 
     /**
      * Launch the browser.
      */
-    public function launch(): Browser
+    public function launch(): BrowserContextInterface
     {
-        $playwright = Container::getInstance()->make(Playwright::class);
-
-        return $playwright->launch();
+        return Playwright::chromium(config('salvager.playwright', []));
     }
 }

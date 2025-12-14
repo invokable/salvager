@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@victor-teles/playwright-php": "https://github.com/victor-teles/playwright-php/tarball/main"
-  }
-}
