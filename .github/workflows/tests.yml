@@ -32,5 +32,12 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
       - name: Install Playwright
         run: vendor/bin/playwright-install --with-deps
+      - name: Install agent-browser
+        run: |
+          npm install -g agent-browser
+          agent-browser install
       - name: Test
         run: composer run test
+        env:
+          AGENT_BROWSER_PATH: "agent-browser"
+          #AGENT_BROWSER_EXECUTABLE_PATH: "null"

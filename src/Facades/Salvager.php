@@ -10,6 +10,7 @@ use Revolution\Salvager\Contracts\Factory;
 
 /**
  * @method void browse(callable $callback)
+ * @method void agent(callable $callback)
  * @method BrowserContextInterface launch()
  */
 class Salvager extends Facade
