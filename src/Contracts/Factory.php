@@ -7,4 +7,6 @@ namespace Revolution\Salvager\Contracts;
 interface Factory
 {
     public function browse(callable $callback): void;
+
+    public function agent(callable $callback): void;
 }
