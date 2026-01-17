@@ -35,8 +35,10 @@ jobs:
       - name: Install agent-browser
         run: |
           npm install -g agent-browser
-          npm install -g @sparticuz/chromium
           agent-browser install --with-deps
+          npm install @sparticuz/chromium
+          node -e "console.log(require('@sparticuz/chromium').executablePath())" > /tmp/chromium_path.txt
+          mv $(cat /tmp/chromium_path.txt) /tmp/chromium
       - name: Test
         run: composer run test
         env:
