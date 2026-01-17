@@ -37,7 +37,7 @@ jobs:
           npm install -g agent-browser
           agent-browser install --with-deps
           npm install @sparticuz/chromium
-          node -e "console.log(require('@sparticuz/chromium').executablePath())" > /tmp/chromium_path.txt
+          node ./scripts/install-chromium.js > /tmp/chromium_path.txt
           cat /tmp/chromium_path.txt
           mv $(cat /tmp/chromium_path.txt) /tmp/
       - name: Test
