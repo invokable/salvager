@@ -37,7 +37,7 @@ jobs:
           npm install -g agent-browser
           agent-browser install --with-deps
           npm install @sparticuz/chromium
-          node ./scripts/install-chromium.js > /tmp/chromium_path.txt
+          node ./.github/scripts/install-chromium.js > /tmp/chromium_path.txt
           cat /tmp/chromium_path.txt
       - name: Test
         run: composer run test
