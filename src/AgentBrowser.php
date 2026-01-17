@@ -17,7 +17,6 @@ class AgentBrowser
     {
         $cmd = collect([
             Config::get('salvager.agent-browser.path'),
-            filled(Config::get('salvager.agent-browser.executable-path')) ? '--executable-path '.Config::get('salvager.agent-browser.executable-path') : null,
             $command,
             $args,
             $options ?? Config::get('salvager.agent-browser.options'),
@@ -25,6 +24,9 @@ class AgentBrowser
             ->join(' ');
 
         $result = Process::path(base_path())
+            ->env([
+                'AGENT_BROWSER_EXECUTABLE_PATH' => Config::get('salvager.agent-browser.executable-path'),
+            ])
             ->run($cmd)
             ->throw();
 
