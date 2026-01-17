@@ -99,6 +99,7 @@ use Revolution\Salvager\AgentBrowser;
 use Revolution\Salvager\Facades\Salvager;
 
 Salvager::agent(function (AgentBrowser $agent) use (&$url, &$text, &$html) {
+    $agent->userAgent('Chromium');
     $agent->open('https://example.com/');
     $agent->screenshot(config('salvager.screenshots').'agent-test.png');
 
