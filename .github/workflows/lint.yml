@@ -12,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: Testing
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: 8.5
 
       - name: Install Dependencies
         run: |
@@ -26,11 +26,11 @@ jobs:
       - name: Run Pint
         run: composer run lint
 
-      - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: fix code style
-          commit_options: '--no-verify'
-          file_pattern: |
-            **/*
-            !.github/workflows/*
+#      - name: Commit Changes
+#        uses: stefanzweifel/git-auto-commit-action@v5
+#        with:
+#          commit_message: fix code style
+#          commit_options: '--no-verify'
+#          file_pattern: |
+#            **/*
+#            !.github/workflows/*
