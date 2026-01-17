@@ -12,6 +12,7 @@ class AgentBrowserTest extends TestCase
     public function test_agent()
     {
         Salvager::agent(function (AgentBrowser $agent) use (&$url, &$text, &$html) {
+            $agent->userAgent('Salvager');
             $agent->open('https://example.com/');
             $agent->screenshot(config('salvager.screenshots').'agent-test.png');
 

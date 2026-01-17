@@ -6,9 +6,13 @@ namespace Revolution\Salvager;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Process;
+use Illuminate\Support\Str;
 
 class AgentBrowser
 {
+    /**
+     * Run any agent-browser command.
+     */
     public function run(string $command, ?string $args = null, ?string $options = null): string
     {
         $cmd = collect([
@@ -27,31 +31,59 @@ class AgentBrowser
         return trim($result->output());
     }
 
-    public function open(string $url): void
+    /**
+     * Open a URL in the agent browser.
+     */
+    public function open(string $url, ?string $options = null): void
     {
-        $this->run('open', $url);
+        $this->run('open', $url, $options);
     }
 
+    /**
+     * Set the User-Agent header.
+     */
+    public function userAgent(string $userAgent, ?string $options = null): void
+    {
+        $headers = Str::wrap(json_encode(['User-Agent' => $userAgent]), "'");
+
+        $this->run('set headers', $headers, $options);
+    }
+
+    /**
+     * Get the current URL.
+     */
     public function url(): string
     {
         return $this->run('get', 'url');
     }
 
+    /**
+     * Take a screenshot of the current page.
+     */
     public function screenshot(string $path): void
     {
         $this->run('screenshot', $path);
     }
 
+    /**
+     * Close the agent browser.
+     */
     public function close(): void
     {
         $this->run('close');
     }
 
+    /**
+     * Get the HTML content of a selector.
+     */
     public function html(string $selector, ?string $options = null): string
     {
         return $this->run('get html', $selector, $options);
     }
 
+    /**
+     * Get the text content of a selector.
+     */
     public function text(string $selector, ?string $options = null): string
     {
         return $this->run('get text', $selector, $options);
