@@ -27,8 +27,12 @@ class AgentBrowser
             ->env([
                 'AGENT_BROWSER_EXECUTABLE_PATH' => Config::get('salvager.agent-browser.executable-path'),
             ])
-            ->run($cmd)
-            ->throw();
+            ->run($cmd);
+
+        if ($result->failed()) {
+            Process::path(base_path())
+                ->run(Config::get('salvager.agent-browser.path').' close');
+        }
 
         return trim($result->output());
     }
