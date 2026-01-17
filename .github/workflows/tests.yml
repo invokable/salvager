@@ -39,7 +39,6 @@ jobs:
           npm install @sparticuz/chromium
           node ./scripts/install-chromium.js > /tmp/chromium_path.txt
           cat /tmp/chromium_path.txt
-          mv $(cat /tmp/chromium_path.txt) /tmp/
       - name: Test
         run: composer run test
         env:
