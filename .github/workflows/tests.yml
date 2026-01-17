@@ -35,6 +35,7 @@ jobs:
       - name: Install agent-browser
         run: |
           npm install -g agent-browser
+          npm install -g @sparticuz/chromium
           agent-browser install --with-deps
       - name: Test
         run: composer run test
