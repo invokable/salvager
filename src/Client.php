@@ -46,5 +46,7 @@ class Client implements Factory
         $agent = app(AgentBrowser::class);
 
         $callback($agent);
+
+        rescue(fn () => $agent->close());
     }
 }
