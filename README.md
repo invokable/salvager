@@ -6,7 +6,7 @@ Tiny WebCrawler for Laravel using Playwright.
 
 Version 2 has been reworked as a simple package that depends on Playwright. It only implements minimal functionality, since you can use [playwright-php/playwright](https://github.com/playwright-php/playwright) directly.
 
-In addition, version 2.2 now supports the Vercel agent-browser.
+In addition, version 2.2 now supports the Vercel [agent-browser](https://github.com/vercel-labs/agent-browser).
 
 ## Requirements
 - PHP >= 8.3
