@@ -42,6 +42,7 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "lint": "pint"
+    "lint": "pint",
+    "boost": "vendor/bin/testbench boost:install --no-interaction --ansi"
   }
 }
