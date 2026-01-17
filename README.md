@@ -42,9 +42,9 @@ If you want to use custom Chromium binary, you can specify it in .env file.
 
 ```dotenv
 # .env
-AGENT_BROWSER_PATH=/path/to/agent-browser
-AGENT_BROWSER_EXECUTABLE_PATH=/path/to/chromium
-AGENT_BROWSER_OPTIONS=
+SALVAGER_AGENT_BROWSER_PATH=/path/to/agent-browser
+SALVAGER_AGENT_BROWSER_EXECUTABLE_PATH=/path/to/chromium
+SALVAGER_AGENT_BROWSER_OPTIONS=
 ```
 
 ## Usage
