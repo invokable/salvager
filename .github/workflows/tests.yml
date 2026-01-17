@@ -41,4 +41,4 @@ jobs:
         run: composer run test
         env:
           AGENT_BROWSER_PATH: "agent-browser"
-          #AGENT_BROWSER_EXECUTABLE_PATH: "null"
+          AGENT_BROWSER_EXECUTABLE_PATH: "/tmp/chromium"
