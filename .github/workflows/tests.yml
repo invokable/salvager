@@ -42,5 +42,5 @@ jobs:
       - name: Test
         run: composer run test
         env:
-          AGENT_BROWSER_PATH: "agent-browser"
-          AGENT_BROWSER_EXECUTABLE_PATH: "/tmp/chromium"
+          SALVAGER_AGENT_BROWSER_PATH: "agent-browser"
+          SALVAGER_AGENT_BROWSER_EXECUTABLE_PATH: "/tmp/chromium"
