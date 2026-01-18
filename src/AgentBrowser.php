@@ -16,9 +16,6 @@ class AgentBrowser
     public function run(string $command, ?string $args = null, ?string $options = null): string
     {
         // Install chromium
-        if ($install_deps = config('salvager.agent-browser.install.deps')) {
-            Process::path(base_path())->timeout(60)->run($install_deps)->throw();
-        }
         if ($install_chromium = config('salvager.agent-browser.install.chromium')) {
             Process::path(base_path())->timeout(60)->run($install_chromium)->throw();
         }
