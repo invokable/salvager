@@ -32,6 +32,8 @@ class AgentBrowser
         if ($result->failed()) {
             Process::path(base_path())
                 ->run(Config::get('salvager.agent-browser.path').' close');
+
+            $result->throw();
         }
 
         return trim($result->output());
