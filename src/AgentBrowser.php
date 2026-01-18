@@ -31,6 +31,7 @@ class AgentBrowser
         $result = Process::path(base_path())
             ->env([
                 'AGENT_BROWSER_EXECUTABLE_PATH' => Config::get('salvager.agent-browser.executable-path'),
+                'NO_COLOR' => 1,
             ])
             ->run($cmd);
 
