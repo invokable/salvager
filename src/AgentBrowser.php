@@ -16,8 +16,11 @@ class AgentBrowser
     public function run(string $command, ?string $args = null, ?string $options = null): string
     {
         // Install chromium
-        if ($install = config('salvager.agent-browser.install')) {
-            Process::path(base_path())->run($install);
+        if ($install_deps = config('salvager.agent-browser.install.deps')) {
+            Process::path(base_path())->run($install_deps);
+        }
+        if ($install_chromium = config('salvager.agent-browser.install.chromium')) {
+            Process::path(base_path())->run($install_chromium);
         }
 
         $cmd = collect([
