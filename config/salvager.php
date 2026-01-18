@@ -14,11 +14,23 @@ return [
         'path' => env('SALVAGER_AGENT_BROWSER_PATH', 'agent-browser'),
 
         /**
-         * path to chromium
+         * path to chromium.
+         *
+         * `/tmp/chromium`
          */
         'executable-path' => env('SALVAGER_AGENT_BROWSER_EXECUTABLE_PATH'),
 
+        /**
+         * `--json`
+         */
         'options' => env('SALVAGER_AGENT_BROWSER_OPTIONS'),
+
+        /**
+         * Chromium install command.
+         *
+         * `node ./scripts/install-chromium.js`
+         */
+        'install' => env('SALVAGER_CHROMIUM_INSTALL'),
     ],
 
     'screenshots' => storage_path('salvager/screenshots'),
