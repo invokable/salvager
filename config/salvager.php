@@ -29,8 +29,6 @@ return [
          * Chromium install command.
          */
         'install' => [
-            // `dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libXcomposite libXdamage libXrandr mesa-libgbm pango alsa-lib libxkbcommon libxcb libX11-xcb libX11 libXext libXcursor libXfixes libXi gtk3 cairo-gobject`
-            'deps' => env('SALVAGER_INSTALL_DEPS'),
             // `node ./scripts/install-chromium.js`
             'chromium' => env('SALVAGER_INSTALL_CHROMIUM'),
         ],
