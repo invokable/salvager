@@ -35,6 +35,7 @@ jobs:
       - name: Install agent-browser
         run: |
           npm install -g agent-browser
+          agent-browser --version
           agent-browser install --with-deps
           npm install @sparticuz/chromium
           node ./.github/scripts/install-chromium.js > /tmp/chromium_path.txt
