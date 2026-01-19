@@ -17,7 +17,7 @@ class AgentBrowser
     {
         // Install chromium
         if ($install_chromium = config('salvager.agent-browser.install.chromium')) {
-            Process::path(base_path())->timeout(60)->run($install_chromium)->throw();
+            Process::path(base_path())->timeout(10)->run($install_chromium);
         }
 
         $cmd = collect([
