@@ -11,14 +11,11 @@ return [
     ],
 
     'agent-browser' => [
-        'path' => env('SALVAGER_AGENT_BROWSER_PATH', 'agent-browser'),
-
         /**
-         * path to chromium.
-         *
-         * `/tmp/chromium`
+         * global: `agent-browser`
+         * local: `npx agent-browser`
          */
-        'executable-path' => env('SALVAGER_AGENT_BROWSER_EXECUTABLE_PATH'),
+        'path' => env('SALVAGER_AGENT_BROWSER_PATH', 'agent-browser'),
 
         /**
          * `--json`
