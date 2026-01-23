@@ -31,15 +31,16 @@ vendor/bin/playwright-install --with-deps
 
 ### Vercel agent-browser
 
-#### Global installation
+#### Global installation and use Chromium binary
 Install agent-browser and Chromium globally and run it as a Laravel Process.
 
 ```shell
 npm install -g agent-browser
 agent-browser install
-```
 
-If you want to use custom Chromium binary, you can specify it in .env file.
+# Linux
+agent-browser install --with-deps
+```
 
 ```dotenv
 # .env
@@ -47,9 +48,15 @@ SALVAGER_AGENT_BROWSER_PATH=/path/to/agent-browser
 SALVAGER_AGENT_BROWSER_OPTIONS=
 ```
 
-Set it in the shell environment variables instead of .env.
+If you want to use custom Chromium binary `@sparticuz/chromium`, you can specify it in shell environment variables.
+
 ```dotenv
-AGENT_BROWSER_EXECUTABLE_PATH=/path/to/chromium
+AGENT_BROWSER_EXECUTABLE_PATH=/tmp/chromium
+```
+
+```dotenv
+# .env
+SALVAGER_INSTALL_CHROMIUM="node ./scripts/install-chromium.js"
 ```
 
 #### Local installation and use Cloud provider
