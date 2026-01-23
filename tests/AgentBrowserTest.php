@@ -14,6 +14,7 @@ class AgentBrowserTest extends TestCase
         Salvager::agent(function (AgentBrowser $agent) use (&$url, &$text, &$html) {
             $agent->userAgent('Salvager');
             $agent->open('https://example.com/');
+            $agent->run('wait --load networkidle');
             $agent->screenshot(config('salvager.screenshots').'agent-test.png');
 
             $url = $agent->url();
