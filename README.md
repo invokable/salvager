@@ -79,6 +79,13 @@ AGENT_BROWSER_PROVIDER=browseruse
 BROWSER_USE_API_KEY="your-api-key"
 ```
 
+Vercel also requires AGENT_BROWSER_SOCKET_DIR.
+```dotenv
+AGENT_BROWSER_SOCKET_DIR=/tmp/
+```
+
+I have confirmed that it works with Vercel and Browserbase.
+
 ## Usage
 
 ### Playwright
