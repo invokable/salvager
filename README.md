@@ -64,7 +64,7 @@ You can also install agent-browser locally and use it with Cloud provider such a
 
 This should work on Vercel and Laravel Cloud, which cannot install OS deps.
 
-Install in your Laravel project.
+Install in your Laravel project. Requires agent-browser v0.7.0 or later.
 ```shell
 npm install agent-browser
 ```
