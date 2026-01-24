@@ -34,6 +34,9 @@ vendor/bin/playwright-install --with-deps
 #### Global installation and use Chromium binary
 Install agent-browser and Chromium globally and run it as a Laravel Process.
 
+> [!WARNING]
+> This doesn't work with Vercel or Laravel Cloud. See below.
+
 ```shell
 npm install -g agent-browser
 agent-browser install
