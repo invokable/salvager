@@ -138,6 +138,7 @@ $page->goto('https://example.com/');
 // Do something...
 
 // Don't forget to close the browser
+$page->close();
 $browser->close();
 ```
 
@@ -159,7 +160,8 @@ Salvager::agent(function (AgentBrowser $agent) use (&$url, &$text, &$html) {
     // Run any agent-browser command
     $result = $agent->run(command: '', args: '', options: '');
 
-    $agent->close();
+    // If you are using a cloud provider, it is recommended not to close manually.
+    // $agent->close();
 });
 ```
 
