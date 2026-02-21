@@ -10,7 +10,7 @@ In addition, version 2.2 now supports the Vercel [agent-browser](https://github.
 
 ## Requirements
 - PHP >= 8.3
-- Laravel >= 11.x
+- Laravel >= 12.x
 
 ## Installation
 
