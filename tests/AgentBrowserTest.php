@@ -18,8 +18,8 @@ class AgentBrowserTest extends TestCase
             $agent->screenshot(config('salvager.screenshots').'agent-test.png');
 
             $url = $agent->url();
-            $text = $agent->text('xpath=//p[1]', '--json');
-            $html = $agent->html('css=html');
+            $text = $agent->text('p:last-of-type', '--json');
+            $html = $agent->html('html');
 
             $agent->close();
         });
