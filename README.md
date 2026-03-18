@@ -154,8 +154,8 @@ Salvager::agent(function (AgentBrowser $agent) use (&$url, &$text, &$html) {
     $agent->screenshot(config('salvager.screenshots').'agent-test.png');
 
     $url = $agent->url();
-    $text = $agent->text('xpath=//p[1]', '--json');
-    $html = $agent->html('css=html');
+    $text = $agent->text('p:last-of-type', '--json');
+    $html = $agent->html('html');
 
     // Run any agent-browser command
     $result = $agent->run(command: '', args: '', options: '');
@@ -164,8 +164,6 @@ Salvager::agent(function (AgentBrowser $agent) use (&$url, &$text, &$html) {
     // $agent->close();
 });
 ```
-
-Since `text()` and `html()` use Playwright's page.locator(), using a CSS selector will result in an error if multiple elements are found. If you want to specify one of multiple elements, use XPath.
 
 ## LICENSE
 MIT  
